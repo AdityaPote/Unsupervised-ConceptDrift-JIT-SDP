@@ -1,0 +1,14 @@
+cd CDP_JIT_SDP && source venv/bin/activate
+
+
+install requirrments
+
+cd CDP_JIT_SDP && source venv/bin/activate && python train.py -train_data ./data/openstack_train.pkl -val_data ./data/openstack_test.pkl -dictionary_data ./data/openstack_dict.pkl -save_dir ./models -model_name CDP_JIT_SDP -epochs 5 -batch_size 64
+
+
+source venv/bin/activate && python evaluate.py -test_data ./data/openstack_test.pkl -dictionary_data ./data/openstack_dict.pkl -load_model ./models/2025-05-02_12-07-35/CDP_JIT_SDP_best.pt
+
+source venv/bin/activate && python train.py -train_data ./data/qt_train.pkl -val_data ./data/qt_test.pkl -dictionary_data ./data/qt_dict.pkl -save_dir ./models -model_name CDP_JIT_SDP_qt -epochs 10 -batch_size 128 -learning_rate 0.0005 -weight_decay 1e-4
+
+
+source venv/bin/activate && python evaluate.py -test_data ./data/qt_test.pkl -dictionary_data ./data/qt_dict.pkl -load_model ./models/2025-05-02_12-25-32/CDP_JIT_SDP_qt_best.pt  
